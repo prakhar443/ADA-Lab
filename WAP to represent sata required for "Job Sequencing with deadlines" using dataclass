@@ -1,69 +1,29 @@
 from dataclasses import dataclass
-
 @dataclass
-
 class Job:
-
-    job_name: str
-
-    profit: int
-
-    deadline: int
-
-def job_sequence(jobs):
-
-    # Sorting jobs based on profits
-
-    jobs = sorted(jobs, key=lambda x: x.profit, reverse=True)  # O(nlogn)
-
-    # Finding Max deadline
-
-    max_deadline = max(deadlines)  
-
-    # Creating array for sequence
-
-    job_sequence = [None] * max_deadline
-
-    count = 0  # For tracking num of jobs added
-
-    max_profit = 0  # For tracking profit
-
-    for job in jobs:
-
-        if count >= max_deadline:
-
-            break
-
-        # Finding possible position before its deadline
-
-        for i in range(job.deadline-1, -1, -1):
-
-            if job_sequence[i] is None:
-
-                job_sequence[i] = (job.job_name, job.profit)
-
-                max_profit += job.profit
-
-                count += 1
-
-                break
-
-    return job_sequence
-
-if __name__ == '__main__':
-
-    # taking inputs
-
-    job_names = input("Enter Job names: ").split(" ")
-
-    profits = list(map(int, input("Enter Profits: ").split(" ")))
-
-    deadlines = list(map(int, input("Enter Deadlines: ").split(" ")))
-
-    # Making Job objects from the inputs
-
-    jobs = [Job(name, profit, deadline) for (name, profit, deadline)
-
-            in zip(job_names, profits, deadlines)]  # O👎
-
-    print("The sequence with Maximum profit is", job_sequence(jobs))
+ job_name:str
+ profit:int
+ deadline:int
+# Inputs
+job_names = ['J1','J4','J3','J2']
+profits = [100, 27, 15, 10]
+deadlines = [2,1,2,1]
+jobs = [] 
+# adding jobs
+for i in range(len(job_names)):
+ jobs.append(Job(job_names[i],profits[i],deadlines[i]))
+# sorting jobs based on profit
+jobs = sorted(jobs,key = lambda x:x.profit,reverse=True) 
+max_deadline = max(deadlines) 
+job_sequence = [None] * max_deadline
+# for counting jobs added to sequence
+count = 0 
+for job in jobs:
+ if count >= max_deadline:
+ break
+ for i in range(job.deadline-1,-1,-1):
+ if job_sequence[i] is None:
+ job_sequence[i] = job.job_name,job.profit
+ count+=1
+ break 
+print(job_sequence)
